@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Babyboy 💗</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:#fff0f5;
+  overflow-x:hidden;
+}
+
+/* ---------- FLOATING HEARTS ---------- */
+.bg-heart{
+  position:fixed;
+  bottom:-20px;
+  width:14px;height:14px;
+  background:pink;
+  transform:rotate(45deg);
+  animation:floatUp 8s linear infinite;
+  opacity:.5;
+  pointer-events:none;
+}
+.bg-heart::before,.bg-heart::after{
+  content:"";
+  position:absolute;
+  width:14px;height:14px;
+  background:pink;
+  border-radius:50%;
+}
+.bg-heart::before{top:-7px}
+.bg-heart::after{left:-7px}
+@keyframes floatUp{
+  to{transform:translateY(-110vh) rotate(45deg)}
+}
+
+/* ---------- INTRO ---------- */
+.intro{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+}
+
+/* ---------- ENVELOPE ---------- */
+.envelope{
+  width:260px;height:180px;
+  background:#ffc0cb;
+  border-radius:6px;
+  position:relative;
+  cursor:pointer;
+  box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+.envelope::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:#ffb6c1;
+  clip-path:polygon(0 0,50% 50%,100% 0,100% 100%,0 100%);
+}
+.flap{
+  position:absolute;
+  top:0;left:0;
+  width:100%;height:50%;
+  background:#ffb6c1;
+  clip-path:polygon(0 0,50% 100%,100% 0);
+  transform-origin:top;
+  transition:.8s;
+}
+.envelope.open .flap{transform:rotateX(-180deg)}
+
+.paper{
+  position:absolute;
+  bottom:12px;left:15px;
+  width:230px;height:140px;
+  background:white;
+  border-radius:5px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#ff69b4;
+  opacity:0;
+  transform:translateY(70px);
+  transition:1s;
+}
+.paper.show{
+  opacity:1;
+  transform:translateY(-30px);
+}
+
+/* ---------- LETTER ---------- */
+.letter{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:340px;
+  height:440px;
+  background:repeating-linear-gradient(to bottom,#fff,#fff 24px,#ffd6e8 25px);
+  border-radius:12px;
+  padding:26px 22px;
+  box-shadow:0 20px 40px rgba(0,0,0,.35);
+  display:none;
+  z-index:5;
+}
+.letter h2{
+  font-family:'Dancing Script',cursive;
+  color:#ff69b4;
+  text-align:center;
+}
+.letter-content{
+  height:100%;
+  overflow-y:auto;
+  padding-right:18px;
+}
+.letter-content::-webkit-scrollbar{width:0}
+
+/* ---------- HEART SCROLL ---------- */
+.heart-scroll{
+  position:absolute;
+  top:26px;
+  right:8px;
+  height:calc(100% - 52px);
+  width:18px;
+}
+.heart-track{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  width:4px;
+  height:100%;
+  background:rgba(255,182,193,.5);
+  border-radius:10px;
+}
+.heart-thumb{
+  width:18px;height:18px;
+  background:#ff69b4;
+  transform:rotate(45deg);
+  position:absolute;
+  top:0;
+  cursor:pointer;
+}
+.heart-thumb::before,.heart-thumb::after{
+  content:"";
+  position:absolute;
+  width:18px;height:18px;
+  background:#ff69b4;
+  border-radius:50%;
+}
+.heart-thumb::before{top:-9px}
+.heart-thumb::after{left:-9px}
+
+/* ---------- MEMORY BOX ---------- */
+.memory-section{
+  margin:160px auto;
+  text-align:center;
+}
+.memory-box{
+  width:240px;
+  margin:auto;
+  background:#d9b88c;
+  padding:40px;
+  border-radius:10px;
+  box-shadow:0 14px 28px rgba(0,0,0,.25);
+  font-family:'Dancing Script',cursive;
+  font-size:28px;
+  color:#6b3e26;
+  cursor:pointer;
+}
+
+/* ---------- MODAL ---------- */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(255,182,193,.6);
+  backdrop-filter:blur(8px);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:20;
+}
+.modal-content{
+  background:white;
+  padding:16px;
+  border-radius:6px;
+  width:280px;
+  position:relative;
+}
+.modal-content img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+}
+#modalCap{
+  text-align:center;
+  margin-top:10px;
+  font-size:14px;
+}
+.nav{
+  position:absolute;
+  top:50%;
+  font-size:28px;
+  cursor:pointer;
+}
+.prev{left:-40px}
+.next{right:-40px}
+.close{
+  position:absolute;
+  top:-30px;
+  right:0;
+  cursor:pointer;
+}
+
+/* ---------- FINAL SIGN ---------- */
+.final-section{
+  margin:200px auto;
+  text-align:center;
+  display:none;
+}
+.sign-wrapper{
+  position:relative;
+  width:260px;
+  margin:auto;
+}
+.sign-wrapper img{
+  width:100%;
+  image-rendering:pixelated;
+}
+.sign-text{
+  position:absolute;
+  top:23px;
+  left:50%;
+  transform:translateX(-50%);
+  width:85%;
+  font-family:'Minecraft',monospace;
+  font-size:14px;
+  color:#3b2a1a;
+  line-height:22px;
+  text-shadow:1px 1px 0 #c9a66b;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic">
+  <source src="CAS-Apocalypse.mp3" type="audio/mpeg">
+</audio>
+
+<div class="intro">
+  <div class="envelope" id="envelope">
+    <div class="flap"></div>
+    <div class="paper" id="paper">To my lil babyboy 💌</div>
+  </div>
+
+  <div class="letter" id="letter">
+    <div class="letter-content" id="letterContent">
+      <h2>My baby ❤️</h2>
+      <p>It’s been a year. A full 365 days of US!!!!</p>
+    <p>These 12 months have taught me so much, and I’m endlessly grateful for you.</p>
+    <p>I know I joke around sometimes, calling you toxic or a red flag, but trust me, love — <strong>you</strong> are the greenest flag I’ve ever come across.</p>
+    <p>You are patient, caring, and so incredibly gentle with my heart.</p>
+    <p>Being with you has changed my perspective on so many things.</p>
+    <p>I know I get grumpy easily, and I get anxious when you’re away.</p>
+    <p>But thank you for never making me feel like I’m too much.</p>
+    <p>You’ve always supported me and celebrated even my smallest wins.</p>
+    <p>I love you, Varun. You truly mean the world to me.</p>
+    <p>I love how we keep growing stronger as the days pass.</p>
+    <p>I know you sometimes find it hard to open up.</p>
+    <p>That’s okay, love — take your time.</p>
+    <p>Just remember that when it gets hard, I’ll always be here to listen.</p>
+    <p><strong>I love you, Varun.</strong><br>And I can’t wait to keep growing with you. 💖</p>
+      <!-- PASTE YOUR LETTER HERE -->
+    </div>
+
+    <div class="heart-scroll">
+      <div class="heart-track" id="heartTrack"></div>
+      <div class="heart-thumb" id="heartThumb"></div>
+    </div>
+  </div>
+</div>
+
+<section class="memory-section">
+  <div class="memory-box" id="openMemories">Memory Box 💌</div>
+</section>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <div class="close" id="closeModal">✕</div>
+    <div class="nav prev" id="prev">❮</div>
+    <div class="nav next" id="next">❯</div>
+    <img id="modalImg">
+    <p id="modalCap"></p>
+  </div>
+</div>
+
+<section class="final-section" id="finalSection">
+  <div class="sign-wrapper">
+    <img src="minecraft-sign.png">
+    <div class="sign-text">
+      THANK YOU FOR MAKING ME THE HAPPIEST GIRL.<br>
+      I LOVE YOU, VARUN &lt;3
+    </div>
+  </div>
+</section>
+
+<script>
+/* ---------- ENVELOPE FLOW ---------- */
+const envelope=document.getElementById("envelope");
+const paper=document.getElementById("paper");
+const letter=document.getElementById("letter");
+const music=document.getElementById("bgMusic");
+
+let step=0; music.volume=0;
+
+envelope.onclick=()=>{
+  if(music.paused){
+    music.play();
+    let v=0;
+    const f=setInterval(()=>{v+=.02;music.volume=Math.min(v,.6);if(v>=.6)clearInterval(f)},150);
+  }
+  if(step===0){envelope.classList.add("open");step=1}
+  else if(step===1){paper.classList.add("show");step=2}
+};
+
+paper.onclick=e=>{
+  e.stopPropagation();
+  letter.style.display="block";
+};
+
+/* ---------- HEART SCROLL ---------- */
+const heartThumb=document.getElementById("heartThumb");
+const heartTrack=document.getElementById("heartTrack");
+const content=document.getElementById("letterContent");
+let dragging=false;
+
+heartThumb.onmousedown=()=>dragging=true;
+document.onmouseup=()=>dragging=false;
+
+document.onmousemove=e=>{
+  if(!dragging)return;
+  const r=heartTrack.getBoundingClientRect();
+  let y=e.clientY-r.top;
+  const max=r.height-heartThumb.offsetHeight;
+  y=Math.max(0,Math.min(y,max));
+  heartThumb.style.top=y+"px";
+  content.scrollTop=y/max*(content.scrollHeight-content.clientHeight);
+};
+
+content.onscroll=()=>{
+  const maxScroll=content.scrollHeight-content.clientHeight;
+  const maxThumb=heartTrack.clientHeight-heartThumb.offsetHeight;
+  heartThumb.style.top=content.scrollTop/maxScroll*maxThumb+"px";
+};
+
+/* ---------- MEMORIES ---------- */
+const memories=[
+  {img:"1000095714.jpg",cap:"Our 1st DATEEE!!"},
+  {img:"1000089442.jpg",cap:"Where we sat in Creamstone (2nd date)"},
+  {img:"1000095711.jpg",cap:"Our first movie date"},
+  {img:"1000095703.jpg",cap:"First time in ISKCON together(9th month together)"},
+  {img:"1000095713.jpg",cap:"My personal rapido hehe "},
+  {img:"1000095716.jpg",cap:"Roblox kissies (we lovey dovey like that lmao)"},
+  {img:"1000095705.jpg",cap:"Our first New Year 🎆 The perfect night"},
+  {img:"1000095706.jpg",cap:"Us 💗"}
+];
+
+let i=0;
+const modal=document.getElementById("modal");
+const modalImg=document.getElementById("modalImg");
+const modalCap=document.getElementById("modalCap");
+
+document.getElementById("openMemories").onclick=()=>{
+  modal.style.display="flex";
+  show();
+};
+document.getElementById("closeModal").onclick=()=>{
+  modal.style.display="none";
+  document.getElementById("finalSection").style.display="block";
+};
+document.getElementById("prev").onclick=()=>{if(i>0){i--;show()}};
+document.getElementById("next").onclick=()=>{if(i<memories.length-1){i++;show()}};
+
+function show(){
+  modalImg.src=memories[i].img;
+  modalCap.textContent=memories[i].cap;
+}
+
+/* ---------- FLOATING HEARTS ---------- */
+for(let h=0;h<18;h++){
+  const heart=document.createElement("div");
+  heart.className="bg-heart";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.animationDuration=5+Math.random()*5+"s";
+  document.body.appendChild(heart);
+}
+</script>
+
+</body>
+</html>
